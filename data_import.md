@@ -144,3 +144,42 @@ Data summary
 Enter “view(litters_df)” in the console, instead of as a code chunk,
 will open a window for me to interact with the whole dataset. This
 avoids making the knitting process of R Markdown more difficult
+
+## Options to read_csv
+
+Comma separated values (CSV). “?read_csv” in the console gives more
+info. It shows how you can make it more specified with code
+
+``` r
+litters_df = read_csv("./data/FAS_litters.csv", skip = 10, col_names = FALSE)
+```
+
+    ## Rows: 40 Columns: 8
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (2): X1, X2
+    ## dbl (6): X3, X4, X5, X6, X7, X8
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+``` r
+#"skip = " tells it how many rows to skip. Run "litters_df" to see if properly skipped. Add "col_names = FALSE" if skipping it messed up the top row.
+```
+
+``` r
+litters_df = read_csv("./data/FAS_litters.csv", na = c("", ".", "NA", 999))
+```
+
+    ## Rows: 49 Columns: 8
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (2): Group, Litter Number
+    ## dbl (6): GD0 weight, GD18 weight, GD of Birth, Pups born alive, Pups dead @ ...
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+``` r
+#"every time it sees , or NA or 999, it will treat that as missing 
+```
