@@ -1,0 +1,101 @@
+---
+title: "Data Import"
+output: github_document
+---
+
+```{r setup}
+library(tidyverse)
+library(readxl)
+library(haven)
+```
+
+To insert a code chunk, can press "option command i". The code chunk above is called "r setup"
+
+## Read in some data
+*A relative vs. absolute path*: A relative path example: tell it to go to the data file then find the FAS_litters.csv. An absolute path example: tell it to go to hard drive, then to users folder, then etc... Recommend use relative; they're stable
+
+Read in the litters dataset.
+```{r}
+litters_df = read_csv("./data/FAS_litters.csv")
+litters_df = janitor::clean_names(litters_df)
+#overwrite the original "litters_df" in line 18. load the clean_name function which is in the janitor package. Can load janitor package with tidyverse above but we only want the clean_name function so we write it with the ::. Running it basically changes the variable names (ex. "GD of Birth" to "gd_of_birth") in snake case.
+```
+"read_csv()" function exist in the reader package. Insert the relative path in the bracket. "." means from the starting point, go to data folder, and look at the FAS_litters csv file.
+
+## Take a look at the data
+
+```{r}
+litters_df
+#can show us that the dataset includes 49 rows and 8 columns
+#"<chr>" means character variable
+#"<dbl>" means "double," which is a particular kind of number; numeric variable
+```
+
+Printing in the console.
+```{r}
+head(litters_df)
+#Gives us first 6 rows. Instead of "head" can also put "tail" to look at the last few rows.
+```
+
+```{r}
+skimr::skim(litters_df)
+#skimr package only has the "skim" function
+#tells you how many are missing, min, max, white spaces, etc in character variables
+#also tells you missing, mean, sd, quartile, histogram for numeric variables
+```
+
+Enter "view(litters_df)" in the console, instead of as a code chunk, will open a window for me to interact with the whole dataset. This avoids making the knitting process of R Markdown more difficult
+
+## Options to read_csv
+Comma separated values (CSV). 
+"?read_csv" in the console gives more info. It shows how you can make it more specified with code
+
+```{r}
+litters_df = read_csv("./data/FAS_litters.csv", skip = 10, col_names = FALSE)
+#"skip = " tells it how many rows to skip. Run "litters_df" to see if properly skipped. Add "col_names = FALSE" if skipping it messed up the top row.
+```
+
+```{r}
+litters_df = read_csv("./data/FAS_litters.csv", na = c("", ".", "NA", 999))
+#"every time it sees , or NA or 999, it will treat that as missing 
+```
+
+## Reading excel files
+
+Remember to load "library(readxl)" beforehand
+```{r}
+mlb_df = read_excel("./data/mlb11.xlsx", range = "A1:F7")
+#check by running "mlb_df" to check the format and see if you need to use janitor/clean_names to clean anything. Can also view the dataset by running "view(mlb_df)" in console.
+```
+Look at "?read_excel" for more info and how to make the code more specific and examples
+
+## Reading SAS files
+
+Remember to load "library(haven)" beforehand
+```{r}
+pulse_df = read_sas("./data/public_pulse_data.sas7bdat")
+#check by running "pulse_df" to check the format, rows, columns, etc
+```
+
+## Comparison with Base R
+
+What about `read.csv`...? DON'T use this. Instead USE `read_csv` because....
+```{r}
+litters_base = read.csv("data/FAS_litters.csv")
+litters_readr = read_csv("data/FAS_litters.csv")
+
+litters_base #prints out more information/entire dataset 
+litters_readr #easier to read than "litters_base"
+```
+
+## Exporting data
+
+Export the mlb sub-table (6x6 table after restriction in line 67).
+
+```{r}
+write_csv(mlb_df, "./data/mlb_subtable.csv")
+#write_csv(what to export, path with name )
+```
+
+
+
