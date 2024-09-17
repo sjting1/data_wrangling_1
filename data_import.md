@@ -16,6 +16,11 @@ library(tidyverse)
     ## ✖ dplyr::lag()    masks stats::lag()
     ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 
+``` r
+library(readxl)
+library(haven)
+```
+
 To insert a code chunk, can press “option command i”. The code chunk
 above is called “r setup”
 
@@ -182,4 +187,25 @@ litters_df = read_csv("./data/FAS_litters.csv", na = c("", ".", "NA", 999))
 
 ``` r
 #"every time it sees , or NA or 999, it will treat that as missing 
+```
+
+## Reading excel files
+
+Remember to load “library(readxl)” beforehand
+
+``` r
+mlb_df = read_excel("./data/mlb11.xlsx", range = "A1:F7")
+#check by running "mlb_df" to check the format and see if you need to use janitor/clean_names to clean anything. Can also view the dataset by running "view(mlb_df)" in console.
+```
+
+Look at “?read_excel” for more info and how to make the code more
+specific and examples
+
+## Reading SAS files
+
+Remember to load “library(haven)” beforehand
+
+``` r
+pulse_df = read_sas("./data/public_pulse_data.sas7bdat")
+#check by running "pulse_df" to check the format, rows, columns, etc
 ```
