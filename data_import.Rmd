@@ -16,11 +16,31 @@ Read in the litters dataset.
 ```{r}
 litters_df = read_csv("./data/FAS_litters.csv")
 litters_df = janitor::clean_names(litters_df)
-#overwrite the original "litters_df" in line 18. load the clean_name function which is in the janitor package. Can load janitor package with tidyverse above but we only want the clean_name function so we write it with the ::.
+#overwrite the original "litters_df" in line 18. load the clean_name function which is in the janitor package. Can load janitor package with tidyverse above but we only want the clean_name function so we write it with the ::. Running it basically changes the variable names (ex. "GD of Birth" to "gd_of_birth") in snake case.
 ```
 "read_csv()" function exist in the reader package. Insert the relative path in the bracket. "." means from the starting point, go to data folder, and look at the FAS_litters csv file.
 
 ## Take a look at the data
 
 
+```{r}
+litters_df
+#can show us that the dataset includes 49 rows and 8 columns
+#"<chr>" means character variable
+#"<dbl>" means "double," which is a particular kind of number; numeric variable
+```
 
+Printing in the console.
+```{r}
+head(litters_df)
+#Gives us first 6 rows. Instead of "head" can also put "tail" to look at the last few rows.
+```
+
+```{r}
+skimr::skim(litters_df)
+#skimr package only has the "skim" function
+#tells you how many are missing, min, max, white spaces, etc in character variables
+#also tells you missing, mean, sd, quartile, histogram for numeric variables
+```
+
+Enter "view(litters_df)" in the console, instead of as a code chunk, will open a window for me to interact with the whole dataset. This avoids making the knitting process of R Markdown more difficult
