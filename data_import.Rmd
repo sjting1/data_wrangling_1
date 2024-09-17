@@ -88,3 +88,14 @@ litters_base #prints out more information/entire dataset
 litters_readr #easier to read than "litters_base"
 ```
 
+## Exporting data
+
+Export the mlb sub-table (6x6 table after restriction in line 67).
+
+```{r}
+write_csv(mlb_df, "./data/mlb_subtable.csv")
+#write_csv(what to export, path with name )
+```
+
+
+
