@@ -666,6 +666,75 @@ filter(litters_df, gd_of_birth == 19)</code></pre>
 ## 3 #1/2/95/2         2       5      13        8      10
 ## # ℹ 124 more rows</code></pre>
 </div>
+<div id="mutate" class="section level2">
+<h2><code>mutate</code></h2>
+<pre class="r"><code>mutate(litters_df, wt_gain = gd18_weight - gd0_weight)</code></pre>
+<pre><code>## # A tibble: 49 × 9
+##   group litter_number gd0_weight gd18_weight gd_of_birth pups_born_alive
+##   &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;           &lt;dbl&gt;
+## 1 Con7  #85                 19.7        34.7          20               3
+## 2 Con7  #1/2/95/2           27          42            19               8
+## 3 Con7  #5/5/3/83/3-3       26          41.4          19               6
+## # ℹ 46 more rows
+## # ℹ 3 more variables: pups_dead_birth &lt;dbl&gt;, pups_survive &lt;dbl&gt;, wt_gain &lt;dbl&gt;</code></pre>
+<pre class="r"><code>#can create new variables by manipulating existing variables
+
+mutate(litters_df, sq_pupps = pups_born_alive^2)</code></pre>
+<pre><code>## # A tibble: 49 × 9
+##   group litter_number gd0_weight gd18_weight gd_of_birth pups_born_alive
+##   &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;           &lt;dbl&gt;
+## 1 Con7  #85                 19.7        34.7          20               3
+## 2 Con7  #1/2/95/2           27          42            19               8
+## 3 Con7  #5/5/3/83/3-3       26          41.4          19               6
+## # ℹ 46 more rows
+## # ℹ 3 more variables: pups_dead_birth &lt;dbl&gt;, pups_survive &lt;dbl&gt;, sq_pupps &lt;dbl&gt;</code></pre>
+<pre class="r"><code>mutate(litters_df,  group = str_to_lower(group))</code></pre>
+<pre><code>## # A tibble: 49 × 8
+##   group litter_number gd0_weight gd18_weight gd_of_birth pups_born_alive
+##   &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;           &lt;dbl&gt;
+## 1 con7  #85                 19.7        34.7          20               3
+## 2 con7  #1/2/95/2           27          42            19               8
+## 3 con7  #5/5/3/83/3-3       26          41.4          19               6
+## # ℹ 46 more rows
+## # ℹ 2 more variables: pups_dead_birth &lt;dbl&gt;, pups_survive &lt;dbl&gt;</code></pre>
+<pre class="r"><code>#lower case the group variables</code></pre>
+<p>Or manipulate all at once:</p>
+<pre class="r"><code>mutate(
+  litters_df, 
+  wt_gain = gd18_weight - gd0_weight,
+  group = str_to_lower(group)
+)</code></pre>
+<pre><code>## # A tibble: 49 × 9
+##   group litter_number gd0_weight gd18_weight gd_of_birth pups_born_alive
+##   &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;           &lt;dbl&gt;
+## 1 con7  #85                 19.7        34.7          20               3
+## 2 con7  #1/2/95/2           27          42            19               8
+## 3 con7  #5/5/3/83/3-3       26          41.4          19               6
+## # ℹ 46 more rows
+## # ℹ 3 more variables: pups_dead_birth &lt;dbl&gt;, pups_survive &lt;dbl&gt;, wt_gain &lt;dbl&gt;</code></pre>
+<pre class="r"><code>mutate(pups_df, pivot_minus7 = pd_pivot - 7)</code></pre>
+<pre><code>## # A tibble: 313 × 7
+##   litter_number   sex pd_ears pd_eyes pd_pivot pd_walk pivot_minus7
+##   &lt;chr&gt;         &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;
+## 1 #85               1       4      13        7      11            0
+## 2 #85               1       4      13        7      12            0
+## 3 #1/2/95/2         1       5      13        7       9            0
+## # ℹ 310 more rows</code></pre>
+<pre class="r"><code>mutate(pups_df, pd_sum = pd_ears + pd_eyes + pd_pivot + pd_walk)</code></pre>
+<pre><code>## # A tibble: 313 × 7
+##   litter_number   sex pd_ears pd_eyes pd_pivot pd_walk pd_sum
+##   &lt;chr&gt;         &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+## 1 #85               1       4      13        7      11     35
+## 2 #85               1       4      13        7      12     36
+## 3 #1/2/95/2         1       5      13        7       9     34
+## # ℹ 310 more rows</code></pre>
+</div>
+<div id="arrange" class="section level2">
+<h2><code>arrange</code></h2>
+</div>
+<div id="pipping" class="section level2">
+<h2><code>pipping</code></h2>
+</div>
 
 
 

@@ -112,3 +112,38 @@ filter(pups_df, sex == 1)
 
 filter(pups_df, sex == 2, pd_walk < 11)
 ```
+
+## `mutate`
+
+```{r}
+mutate(litters_df, wt_gain = gd18_weight - gd0_weight)
+#can create new variables by manipulating existing variables
+
+mutate(litters_df, sq_pupps = pups_born_alive^2)
+
+mutate(litters_df,  group = str_to_lower(group))
+#lower case the group variables
+```
+
+Or manipulate all at once:
+```{r}
+mutate(
+  litters_df, 
+  wt_gain = gd18_weight - gd0_weight,
+  group = str_to_lower(group)
+)
+```
+
+```{r}
+mutate(pups_df, pivot_minus7 = pd_pivot - 7)
+
+mutate(pups_df, pd_sum = pd_ears + pd_eyes + pd_pivot + pd_walk)
+```
+
+## `arrange`
+
+## `pipping`
+
+
+
+
