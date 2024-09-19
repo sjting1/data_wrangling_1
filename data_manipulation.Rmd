@@ -1,0 +1,9 @@
+---
+title: "Sept 19 2024"
+output: html_document
+---
+```{r setup, echo = FALSE, message = FALSE}
+library(tidyverse)
+```
+
+This doc will show how to *manipulate* data.

@@ -55,6 +55,17 @@ litters_df = read_csv("./data/FAS_litters.csv", skip = 10, col_names = FALSE)
 #"skip = " tells it how many rows to skip. Run "litters_df" to see if properly skipped. Add "col_names = FALSE" if skipping it messed up the top row.
 ```
 
+Another example:
+```{r}
+litters_df = 
+  read_csv(
+    file = "data/FAS_litters.csv",
+    col_names = FALSE,
+    skip = 1
+  )
+```
+
+
 ```{r}
 litters_df = read_csv("./data/FAS_litters.csv", na = c("", ".", "NA", 999))
 #"every time it sees , or NA or 999, it will treat that as missing 
@@ -97,5 +108,16 @@ write_csv(mlb_df, "./data/mlb_subtable.csv")
 #write_csv(what to export, path with name )
 ```
 
+
+```{r}
+litters_Df = 
+  read.csv(
+    file = "data/FAS_litters.csv",
+    na = c("NA", "", "."), 
+    col_types = cols(
+      Group = col_factor()
+    )
+  )
+```
 
 
