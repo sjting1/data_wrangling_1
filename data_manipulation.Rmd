@@ -7,3 +7,108 @@ library(tidyverse)
 ```
 
 This doc will show how to *manipulate* data.
+
+Import the two datasets that we're going to manipulate.
+
+```{r}
+options(tibble.print_min = 3)
+
+litters_df = 
+  read_csv("./data/FAS_litters.csv", na = c("NA", ".", ""))
+
+litters_df = janitor::clean_names(litters_df)
+
+pups_df = 
+    read_csv("./data/FAS_pups.csv", na = c("NA", "."))
+
+pups_df = janitor::clean_names(pups_df)
+```
+
+## `select`
+
+Use `select()` to select variables
+
+```{r}
+select(litters_df, group, litter_number, gd0_weight, pups_born_alive)
+#the df you want to select from and the columns you want to keep
+
+select(litters_df, group:gd_of_birth)
+#select everything in this df from group to gd_of_birth
+
+select(litters_df, -pups_survive)
+#can use it to remove column(s) you don't want
+
+select(litters_df, -(group:gd18_weight))
+# use it to delete a group of columns
+
+select(litters_df, starts_with("gd"))
+#select for columns that start with "gd"
+
+select(litters_df, contains("pups"))
+#select for columns that contains "pups"
+```
+
+```{r}
+
+select(litters_df, GROUP = group)
+
+rename(litters_df, GROUP = group)
+       
+select(litters_df, GROUP = group, LiTtEr_NuMbEr = litter_number)
+
+rename(litters_df, GROUP = group, LiTtEr_NuMbEr = litter_number)
+```
+
+
+```{r}
+select(litters_df, litter_number, gd0_weight, everything())
+# put litter_number and gd0_weight columns first then everything else the same as is
+
+relocate(litters_df, litter_number, gd0_weight)
+```
+
+```{r}
+select(pups_df, litter_number, sex, pd_ears)
+```
+
+## `filter`
+
+```{r}
+filter(litters_df, gd_of_birth == 20)
+#"= =" asks if this variable is equal to 20
+
+filter(litters_df, gd_of_birth == 19)
+#"= =" asks if this variable is equal to 19
+```
+
+```{r}
+filter(litters_df, pups_born_alive > 8)
+filter(litters_df, pups_born_alive >= 8) #great equal to
+filter(litters_df, pups_born_alive != 9) #not equal
+```
+
+```{r}
+filter(litters_df, group == "Low8")
+filter(litters_df, group %in% c("Low7", "Low8"))
+```
+
+
+```{r}
+filter(litters_df, group %in% c("Low7", "Low8"), pups_born_alive == 8)
+
+filter(litters_df, group %in% c("Low7", "Low8") | pups_born_alive == 8)
+```
+
+```{r}
+drop_na(litters_df) #get rid of missing data
+
+drop_na(litters_df, gd0_weight)
+#can list all the variable that have missing values and get rid of it at the same time
+#if want to permanently drop them, can overwrite it using "litters_df = drop_na()"
+```
+
+```{r}
+filter(pups_df, sex == 1)
+
+filter(pups_df, sex == 2, pd_walk < 11)
+```
